@@ -1,0 +1,22 @@
+package com.troila.datacoll.network.mqtt.server;
+
+import com.troila.datacoll.network.Network;
+import reactor.core.publisher.Flux;
+
+/**
+ * MQTT服务端
+ *
+ * @author zhouhao
+ * @version 1.0
+ * @since 1.0
+ */
+public interface MqttServer extends Network {
+
+    /**
+     * 订阅客户端连接
+     *
+     * @return 客户端连接流
+     */
+    Flux<MqttConnection> handleConnection();
+
+}

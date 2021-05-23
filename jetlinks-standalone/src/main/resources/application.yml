@@ -24,9 +24,9 @@ spring:
     serializer: jdk # 设置fst时,redis key使用string序列化,value使用 fst序列化.
   #        max-wait: 10s
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/jetlinks
-    username: postgres
-    password: jetlinks
+    url: r2dbc:mysql://localhost:3306/public
+    username: root
+    password: test
     pool:
       max-size: 32
   reactor:
@@ -42,10 +42,10 @@ spring:
           connection-timeout: ${elasticsearch.client.socket-timeout}
 easyorm:
   default-schema: public # 数据库默认的schema
-  dialect: postgres #数据库方言
+  dialect: mysql #数据库方言
 elasticsearch:
   embedded:
-    enabled: false # 为true时使用内嵌的elasticsearch,不建议在生产环境中使用
+    enabled: true # 为true时使用内嵌的elasticsearch,不建议在生产环境中使用
     data-path: ./data/elasticsearch
     port: 9200
     host: 0.0.0.0
@@ -80,7 +80,7 @@ hsweb:
         allow-credentials: true
         max-age: 1800
   dict:
-    enum-packages: org.jetlinks
+    enum-packages: com.troila
   file:
     upload:
       static-file-path: ./static/upload
@@ -157,30 +157,30 @@ springdoc:
   group-configs:
     - group: 设备管理相关接口
       packages-to-scan:
-        - org.jetlinks.community.device
+        - com.troila.datacoll.device
       paths-to-exclude:
         - /device-instance/**
         - /device-product/**
         - /protocol/**
     - group: 规则引擎相关接口
-      packages-to-scan: org.jetlinks.community.rule.engine.web
+      packages-to-scan: com.troila.datacoll.rule.engine.web
       paths-to-exclude: /api/**
     - group: 通知管理相关接口
-      packages-to-scan: org.jetlinks.community.notify.manager.web
+      packages-to-scan: com.troila.datacoll.notify.manager.web
     - group: 设备接入相关接口
       packages-to-scan:
-        - org.jetlinks.community.network.manager.web
-        - org.jetlinks.community.device.web
+        - com.troila.datacoll.network.manager.web
+        - com.troila.datacoll.device.web
       paths-to-match:
         - /gateway/**
         - /network/**
         - /protocol/**
     - group: 系统管理相关接口
       packages-to-scan:
-        - org.jetlinks.community.auth
+        - com.troila.datacoll.auth
         - org.hswebframework.web.system.authorization.defaults.webflux
         - org.hswebframework.web.file
         - org.hswebframework.web.authorization.basic.web
-        - org.jetlinks.community.logging.controller
+        - com.troila.datacoll.logging.controller
   cache:
     disabled: false

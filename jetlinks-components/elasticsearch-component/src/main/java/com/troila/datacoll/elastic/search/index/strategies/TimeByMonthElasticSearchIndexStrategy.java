@@ -1,0 +1,29 @@
+package com.troila.datacoll.elastic.search.index.strategies;
+
+import com.troila.datacoll.elastic.search.service.reactive.ReactiveElasticsearchClient;
+import org.hswebframework.utils.time.DateFormatter;
+import com.troila.datacoll.elastic.search.index.ElasticSearchIndexProperties;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+
+/**
+ * 按月对来划分索引策略
+ *
+ * @author zhouhao
+ * @since 1.0
+ */
+@Component
+public class TimeByMonthElasticSearchIndexStrategy extends TemplateElasticSearchIndexStrategy {
+
+    private final String format = "yyyy-MM";
+
+    public TimeByMonthElasticSearchIndexStrategy(ReactiveElasticsearchClient client, ElasticSearchIndexProperties properties) {
+        super("time-by-month", client,properties);
+    }
+
+    @Override
+    public String getIndexForSave(String index) {
+        return wrapIndex(index).concat("_").concat(DateFormatter.toString(new Date(), format));
+    }
+}
